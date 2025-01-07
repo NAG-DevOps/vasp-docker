@@ -2,19 +2,21 @@
 CPP_OPTIONS= -DHOST=\"LinuxGNU\" \
              -DMPI -DMPI_BLOCK=8000 \
              -Duse_collective \
-             #-DscaLAPACK \
              -DCACHE_SIZE=4000 \
              -Davoidalloc \
              -Duse_bse_te \
              -Dtbdyn \
              -Duse_shmem
 
+             #-DscaLAPACK \
+
 CPP        = gcc -E -P -C -w $*$(FUFFIX) >$*$(SUFFIX) $(CPP_OPTIONS)
 
 FC         = mpif90
 FCL        = mpif90
 
-FREE       = -ffree-form -ffree-line-length-none
+#FREE       = -ffree-form -ffree-line-length-none
+FREE       = -ffree-form -ffree-line-length-none -fallow-argument-mismatch
 
 FFLAGS     = -w
 OFLAG      = -O2
@@ -43,7 +45,8 @@ CPP_LIB    = $(CPP)
 FC_LIB     = $(FC)
 CC_LIB     = gcc
 CFLAGS_LIB = -O
-FFLAGS_LIB = -O1
+#FFLAGS_LIB = -O1
+FFLAGS_LIB = -O1 -fallow-argument-mismatch
 FREE_LIB   = $(FREE)
 
 OBJECTS_LIB= linpack_double.o getshmem.o
